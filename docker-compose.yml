@@ -1,0 +1,12 @@
+version: '3.1'
+volumes:
+  pgdata:
+services:
+  db:
+    image: postgres:10
+    ports:
+      - "9876:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data

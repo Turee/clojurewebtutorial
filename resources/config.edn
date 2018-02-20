@@ -1,0 +1,41 @@
+{:components
+ {;Connection pool options at https://github.com/tomekw/hikari-cp
+  :hikari-cp {:pool-name     "default-pool"
+              :adapter       "postgresql"
+              :username      "postgres"
+              :password      "postgres"
+              :database-name "postgres"
+              :server-name   "localhost"
+              :port-number   9876}
+  ; Server options http://www.http-kit.org/server.html
+  :http-kit  {:ip   "0.0.0.0"
+              :port 3000}
+  :migratus  {:store         :database
+              :migration-dir "migrations/"}}
+ :options
+ {:migratus      {:migrate-on-init false}
+  ;see https://github.com/ring-clojure/ring-defaults for options
+  :ring-defaults {:params    {:urlencoded true
+                              :multipart  true
+                              :nested     true
+                              :keywordize true}
+                  :cookies   true
+                  :session   false
+                  :security  {:anti-forgery         false
+                              :xss-protection       {:enable? true, :mode :block}
+                              :frame-options        :sameorigin
+                              :content-type-options :nosniff}
+                  :static    {:resources "public"}
+                  :responses {:not-modified-responses true
+                              :absolute-redirects     true
+                              :content-types          true
+                              :default-charset        "utf-8"}}}
+ ; System
+ :system
+ {:datasource/hikari-cp {:config ^:ref [:components :hikari-cp]}
+  :handler              {:db            #ig/ref :datasource/hikari-cp
+                         :ring-defaults ^:ref [:options :ring-defaults]}
+  :migratus             {:config  #merge [^:ref [:components :migratus] {:db #ig/ref :datasource/hikari-cp}]
+                         :options ^:ref [:options :migratus]}
+  :server/http-kit      {:config  ^:ref [:components :http-kit]
+                         :handler #ig/ref :handler}}}
