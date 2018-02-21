@@ -3,6 +3,7 @@
             [compojure.api.sweet :as sweet]
             [ring.middleware.defaults :as defaults]
             [clojurewebtutorial.features.pizza.handler :as pizza]
+            [clojurewebtutorial.graphql.handler :as graphql]
             [cheshire.core]
             [ring.middleware.json :as json-mw]
             [ring.util.http-response :as hr]))
@@ -28,5 +29,7 @@
             (hr/resource-response "public/index.html")
             {:headers {"Content-Type" "text/html"}}))
         (api/context "/api/v1" []
-          (pizza/routes context)))
+          (pizza/routes context))
+        (api/context "/graphql" []
+          (graphql/routes context)))
       (middleware context)))

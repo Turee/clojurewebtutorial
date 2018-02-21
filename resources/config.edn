@@ -34,8 +34,10 @@
  :system
  {:datasource/hikari-cp {:config ^:ref [:components :hikari-cp]}
   :handler              {:db            #ig/ref :datasource/hikari-cp
-                         :ring-defaults ^:ref [:options :ring-defaults]}
+                         :ring-defaults ^:ref [:options :rng-defaults]
+                         :graphql       #ig/ref :component/graphql}
   :migratus             {:config  #merge [^:ref [:components :migratus] {:db #ig/ref :datasource/hikari-cp}]
                          :options ^:ref [:options :migratus]}
   :server/http-kit      {:config  ^:ref [:components :http-kit]
-                         :handler #ig/ref :handler}}}
+                         :handler #ig/ref :handler}
+  :component/graphql    {}}}

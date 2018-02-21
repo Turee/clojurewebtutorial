@@ -4,7 +4,8 @@
             [org.httpkit.server :as server]
             [clojurewebtutorial.jsonb-support]
             [integrant.core :as integrant]
-            [migratus.core :as mig]))
+            [migratus.core :as mig]
+            [clojurewebtutorial.graphql.component :as graphql]))
 
 ; Hikari connection pool
 (defmethod integrant/init-key :datasource/hikari-cp [_ {:keys [config]}]
@@ -27,3 +28,8 @@
   (when (:migrate-on-init options)
     (mig/migrate config))
   component)
+
+;; Graphql
+(defmethod integrant/init-key :component/graphql
+  [_ component]
+  (assoc component :schema (graphql/make-schema)))

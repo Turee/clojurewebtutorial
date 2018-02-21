@@ -1,0 +1,4 @@
+{:objects {:Pizza {:fields {:price {:type Int}}}}
+
+ :queries {:pizzas {:type    (list :Pizza)
+                    :resolve :find-pizzas}}}
