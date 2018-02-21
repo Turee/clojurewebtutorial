@@ -65,3 +65,6 @@
 
 (defn rollback []
   (mig/rollback (migratus-config)))
+
+(defn db []
+  (-> (system) :datasource/hikari-cp))
