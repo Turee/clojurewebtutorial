@@ -6,10 +6,15 @@ Tutorial for Clojure web development, supporting a presentation
 ## Setup
 
 Docker:
+
     docker-compose up -d
+
 Repl:
+
     lein repl
+
 Start dev:
+    
     (fig-start)
     (go)
 
