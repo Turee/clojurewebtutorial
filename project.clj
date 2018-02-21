@@ -12,6 +12,10 @@
                  [org.clojure/clojurescript "1.9.946"]
                  [org.clojure/core.async "0.3.443"]
 
+                 ; ===== SPEC support ====
+                 [org.clojure/spec.alpha "0.1.143"]
+                 [metosin/spec-tools "0.5.1"]
+
                  ; ===== BACKEND ====
                  [http-kit "2.2.0"]                         ; WEB server
                  [ring "1.6.3"]                             ; HTTP Server abstraction + middlewares
@@ -35,6 +39,8 @@
 
                  [cheshire "5.8.0"]                         ; JSON support
 
+                 [com.walmartlabs/lacinia "0.23.0"]         ;; GraphQL
+
                  ; ===== FRONTEND ====
 
                  [reagent "0.8.0-alpha2"]                   ; DATA -> React components
@@ -47,6 +53,9 @@
             [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
 
   :source-paths ["src/clj"]                                 ;src -> src/clj
+
+  ;; Graphql schema will live here
+  :resource-paths ["resources"]
 
   :cljsbuild {:builds
               [{:id           "dev"

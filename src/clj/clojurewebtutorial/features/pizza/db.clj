@@ -20,3 +20,8 @@
 
 (comment
   (pizza-query))
+
+(defn find-pizzas
+  [context args _]
+  [{:price 123}
+   {:price 11}])
