@@ -18,7 +18,7 @@
 
                  ; ===== BACKEND ====
                  [http-kit "2.2.0"]                         ; WEB server
-                 [ring "1.6.3"]                             ; HTTP Server abstraction + middlewares
+                 [ring "1.6.3"]                             ; HTTP Server abstraction
                  [ring/ring-defaults "0.3.1"]               ; Ring defaults has nice collection of middleware
                  [ring/ring-json "0.4.0"]                   ; JSON Middleware
 

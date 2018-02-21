@@ -19,7 +19,10 @@
   (jdbc/insert! db :pizza {:data pizza}))
 
 (comment
-  (pizza-query))
+  (create-pizza (:datasource/hikari-cp (user/system))
+                {:name "Special opera"
+                 :toppings ["tomato sauce" "cheese" "bacon" "bananas"]})
+  (create-pizza (system-newline)))
 
 (defn find-pizzas
   [context args _]

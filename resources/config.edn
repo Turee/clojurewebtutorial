@@ -2,7 +2,7 @@
  {;Connection pool options at https://github.com/tomekw/hikari-cp
   :hikari-cp {:pool-name     "default-pool"
               :adapter       "postgresql"
-              :username      "postgres"
+              :username      #or [#env "DATABASE_USERNAME" "postgres"]
               :password      "postgres"
               :database-name "postgres"
               :server-name   "localhost"
@@ -34,7 +34,7 @@
  :system
  {:datasource/hikari-cp {:config ^:ref [:components :hikari-cp]}
   :handler              {:db            #ig/ref :datasource/hikari-cp
-                         :ring-defaults ^:ref [:options :rng-defaults]
+                         :ring-defaults ^:ref [:options :ring-defaults]
                          :graphql       #ig/ref :component/graphql}
   :migratus             {:config  #merge [^:ref [:components :migratus] {:db #ig/ref :datasource/hikari-cp}]
                          :options ^:ref [:options :migratus]}

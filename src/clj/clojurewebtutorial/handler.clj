@@ -8,22 +8,20 @@
             [ring.middleware.json :as json-mw]
             [ring.util.http-response :as hr]))
 
-; This is example of a middleware
-(defn example-middleware [handler]
-  (fn [req]
-    (println "Processing request" (:request-method req) (:uri req))
-    (time (handler req))))
-
 (defn middleware [handler {:keys [ring-defaults]}]
   (-> handler
       (defaults/wrap-defaults ring-defaults)                ;Sane default middleware
-      (json-mw/wrap-json-response)                          ;Converts clojure data to JSON and back
-      (example-middleware)))                                ;Just and example :)
+      (json-mw/wrap-json-response)))                        ;Converts clojure data to JSON and back
 
 (defn make-handler [context]
   (-> (sweet/api
         {:ui   "/api-docs"
-         :spec "/swagger.json"}
+         :spec "/swagger.json"
+         :data {:info     {:title       "Sample API"
+                           :description "Compojure Api example"}
+                :tags     [{:name "api", :description "some apis"}]
+                :consumes ["application/json"]
+                :produces ["application/json"]}}
         (api/GET "/" []                                     ;Index route
           (merge
             (hr/resource-response "public/index.html")
@@ -33,3 +31,7 @@
         (api/context "/graphql" []
           (graphql/routes context)))
       (middleware context)))
+
+(comment
+  (map (fn [a] (apply merge (second a)))
+       (group-by :asdf [{:asdf 32 :c 4} {:asdf 32 :b 3} {:asdf 2}])))
