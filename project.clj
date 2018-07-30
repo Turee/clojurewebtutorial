@@ -4,7 +4,8 @@
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
-
+  :aot :all
+  :main clojurewebtutorial.main
 
   :min-lein-version "2.7.1"
 
